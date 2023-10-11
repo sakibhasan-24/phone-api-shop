@@ -10,17 +10,25 @@ URL Format: https://openapi.programming-hero.com/api/phone/${id}
 Example: https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089
 
 */
-fetch(`https://openapi.programming-hero.com/api/phones?search=iphone`)
-  .then((res) => res.json())
-  .then((data) => getphones(data));
+
+function loadData(dataName) {
+  fetch(`https://openapi.programming-hero.com/api/phones?search=${dataName}`)
+    .then((res) => res.json())
+    .then((data) => getphones(data));
+}
+// initial call with iphone
+loadData("iphone");
+const searchField = document.getElementById("search-field");
+const searchBtn = document.getElementById("search-btn");
 
 function getphones(phones) {
   const phoneList = phones.data;
   console.log(phoneList);
   const phonesContainer = document.getElementById("phones-container");
+  phonesContainer.textContent = "";
   phoneList.forEach((phone) => {
     const phoneContainer = document.createElement("div");
-    phoneContainer.innerHTML = `<div class="my-2 border border-white min-h-full">
+    phoneContainer.innerHTML = `<div class="my-2 border border-white  min-h-screen rounded-lg shadow-xl cursor-pointer">
     <div class="bg-blue-100">
       <img
         class="w-3/4 p-2 mx-auto"
@@ -42,8 +50,13 @@ function getphones(phones) {
         Show Details
       </button>
     </div>`;
-
-    console.log(phoneContainer.innerText);
     phonesContainer.appendChild(phoneContainer);
   });
 }
+
+searchBtn.addEventListener("click", function () {
+  //   console.log("done");
+  const searchText = searchField.value;
+  searchField.value = "";
+  loadData(searchText);
+});
