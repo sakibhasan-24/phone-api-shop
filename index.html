@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Phone</title>
-
+    <script
+      src="https://kit.fontawesome.com/01c61bf859.js"
+      crossorigin="anonymous"
+    ></script>
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@3.9.2/dist/full.css"
       rel="stylesheet"
@@ -70,10 +73,21 @@
       </div>
       <!-- phones section -->
       <section class="my-4">
+        <div class="text-center hidden" id="loading">
+          <i
+            class="fa-regular text-purple-600 fa-circle text-6xl translate-x-14 fa-beat-fade"
+          ></i>
+        </div>
         <div
           id="phones-container"
           class="grid grid-cols-1 gap-10 lg:grid-cols-3 md:grid-cols-2"
         ></div>
+        <button
+          id="show-all-btn"
+          class="bg-blue-400 hidden text-white px-4 py-3 rounded-lg outline-none font-bold"
+        >
+          Show All
+        </button>
       </section>
     </main>
 

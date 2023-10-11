@@ -20,15 +20,22 @@ function loadData(dataName) {
 loadData("iphone");
 const searchField = document.getElementById("search-field");
 const searchBtn = document.getElementById("search-btn");
-
+const showAllBtn = document.getElementById("show-all-btn");
 function getphones(phones) {
-  const phoneList = phones.data;
-  console.log(phoneList);
+  let phoneList = phones.data;
+  if (phoneList.length > 9) {
+    phoneList = phoneList.slice(0, 9);
+    showAllBtn.classList.remove("hidden");
+  } else {
+    showAllBtn.classList.add("hidden");
+    return phoneList;
+  }
+
   const phonesContainer = document.getElementById("phones-container");
   phonesContainer.textContent = "";
   phoneList.forEach((phone) => {
     const phoneContainer = document.createElement("div");
-    phoneContainer.innerHTML = `<div class="my-2 border border-white  min-h-screen rounded-lg shadow-xl cursor-pointer">
+    phoneContainer.innerHTML = `<div class="my-2 border border-white  h-[600px] rounded-lg shadow-xl cursor-pointer">
     <div class="bg-blue-100">
       <img
         class="w-3/4 p-2 mx-auto"
@@ -52,11 +59,26 @@ function getphones(phones) {
     </div>`;
     phonesContainer.appendChild(phoneContainer);
   });
+  loadingSpinner(false);
 }
 
 searchBtn.addEventListener("click", function () {
-  //   console.log("done");
   const searchText = searchField.value;
   searchField.value = "";
+  //   document.getElementById("loding").classList.remove("hidden");
+  if (searchText.length <= 0) {
+    alert("no data");
+
+    return;
+  }
+  loadingSpinner(true);
   loadData(searchText);
 });
+function loadingSpinner(isLoading) {
+  const loading = document.getElementById("loading");
+  if (isLoading) {
+    loading.classList.remove("hidden");
+  } else {
+    loading.classList.add("hidden");
+  }
+}
