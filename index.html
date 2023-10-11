@@ -53,8 +53,15 @@
         />
       </div>
     </header>
+    <div
+      onclick="closeModal()"
+      id="modal"
+      class="w-1/2 min-h-screen cursor-pointer mt-96 mx-auto rounded-lg hidden items-center justify-center border-2 border-gray-400"
+    ></div>
 
-    <main class="w-3/4 mx-auto mt-20 lg:mt-96 font-bold">
+    <main id="main" class="w-3/4 mx-auto mt-20 lg:mt-96 font-bold">
+      <!-- phone modea -->
+
       <h1 class="text-center text-5xl">Search your phone</h1>
       <div class="flex items-center justify-center gap-1">
         <input
@@ -71,6 +78,7 @@
           Search
         </button>
       </div>
+
       <!-- phones section -->
       <section class="my-4">
         <div class="text-center hidden" id="loading">

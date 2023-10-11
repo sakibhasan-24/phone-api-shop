@@ -51,6 +51,7 @@ function getphones(phones) {
       </p>
       <p>$699</p>
       <button
+      onClick="showDetails('${phone.slug}')" 
         id="details-btn"
         class="bg-blue-400 text-white px-4 py-2 rounded-lg outline-none font-bold"
       >
@@ -81,4 +82,47 @@ function loadingSpinner(isLoading) {
   } else {
     loading.classList.add("hidden");
   }
+}
+
+function showDetails(id) {
+  fetch(` https://openapi.programming-hero.com/api/phone/${id}`)
+    .then((res) => res.json())
+    .then((data) => displaySinglePhone(data.data));
+}
+
+function displaySinglePhone(phone) {
+  console.log(phone);
+  const modal = document.getElementById("modal");
+  const mainPart = document.getElementById("main");
+  modal.textContent = "";
+  modal.classList.remove("hidden");
+  mainPart.classList.add("hidden");
+  const div = document.createElement("div");
+
+  div.innerHTML = `
+  <div id="w-1/2   px-3">
+          <img
+            src="${phone.image}"
+            class="w-[300px] mx-auto p-4 rounded-md"
+            alt=""
+          />
+          <div class=" px-4 py-3">
+          <h1 class="text-2xl text-center my-4">brand: ${phone.brand}</h1>
+          <h1>Name: ${phone.name}</h1>
+          <p>manufacuturer: ${phone.mainFeatures.storage} ${phone.mainFeatures.displaySize}</p>
+          <h4>others: ${phone.others.WLAN}</h4>
+          
+          <p>sensor</p>
+          </div>
+        </div>
+  `;
+  modal.appendChild(div);
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal");
+  const mainPart = document.getElementById("main");
+  modal.textContent = "";
+  modal.classList.add("hidden");
+  mainPart.classList.remove("hidden");
 }
